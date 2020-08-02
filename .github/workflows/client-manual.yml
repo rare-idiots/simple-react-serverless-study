@@ -1,18 +1,12 @@
 # This is a basic workflow that is manually triggered
 
-name: Manual workflow
+name: Client Manual Workflow
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
-    # Inputs the workflow accepts.
-    inputs:
-      name:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Build client and deploy to S3'
-        # Default value if no value is explicitly provided
-        default: 'Client'
-        # Input has to be provided for the workflow to run
-        required: true
 jobs:
   initialize:
     if: github.repository_owner == 'rare-idiots'
