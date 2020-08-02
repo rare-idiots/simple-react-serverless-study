@@ -6,9 +6,8 @@ on:
       - master
   workflow_dispatch:
 jobs:
-  initialize:
-    if: github.repository_owner == 'rare-idiots'
   deploy:
+    if: github.repository_owner == 'rare-idiots'
     name: deploy
     runs-on: ubuntu-latest
     env:
