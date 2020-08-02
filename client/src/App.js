@@ -1,11 +1,24 @@
 import React from 'react';
 
 // Style
-import styled from 'styled-components';
+import { ThemeProvider } from 'styled-components';
+import theme from 'style/theme';
 import 'style/reset.css';
+import 'style/index.css';
+
+// Component
+import { Content, Footer, Header } from 'component';
 
 function App() {
-  return <>Hello World</>;
+  return (
+    <>
+      <ThemeProvider theme={theme}>
+        <Header />
+        <Content />
+        <Footer />
+      </ThemeProvider>
+    </>
+  );
 }
 
 export default App;

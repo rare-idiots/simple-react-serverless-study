@@ -1,11 +1,13 @@
 # Hyeja Pdf Converter
 
-Hyeja Pdf Converter Server
+Hyeja Pdf Converter Client
 
 ## Requirements
 
 - React ^16.8
-- Apollo Client
+- Styled-Component
+- Github Actions & S3 Deploy
+<!-- - Apollo Client -->
 
 ## Set up project
 
