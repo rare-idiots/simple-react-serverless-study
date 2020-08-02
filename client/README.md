@@ -13,6 +13,7 @@ Hyeja Pdf Converter Server
 
 ```env
 NODE_PATH=src/
+SKIP_PREFLIGHT_CHECK=true
 ```
 
 ### How to install
