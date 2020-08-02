@@ -10,6 +10,8 @@ import 'style/index.css';
 import { Content, Footer, Header } from 'component';
 
 function App() {
+  console.log(process.env.REACT_APP_S3_ACCESS_KEY);
+  console.log(process.env.REACT_APP_S3_SECRET_ACCESS_KEY);
   return (
     <>
       <ThemeProvider theme={theme}>
