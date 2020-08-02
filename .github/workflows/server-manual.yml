@@ -11,19 +11,11 @@ jobs:
   deploy:
     name: deploy
     runs-on: ubuntu-latest
-
     steps:
-      - name: start
-        uses: actions/checkout@v2
-
-      - name: npm install
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12'
-          args: npm install
-
-      - name: serverless
-        uses: serverless/github-action@v1.53.0
+      - uses: actions/checkout@master
+      - run: npm ci
+      - name: serverless deploy
+        uses: serverless/github-action@master
         with:
           args: deploy -c serverless.yml -r ap-northeast-2
         env:
