@@ -6,9 +6,19 @@ import styled from 'styled-components';
 // util
 import { bytesToSize } from 'util/index';
 
+// component
+import Select from 'react-select';
+
 const Converter = () => {
+  // variables
+  const options = [
+    { value: 'text', label: 'text' },
+    { value: 'epub', label: 'epub' },
+  ];
+
   // useState
   const [file, setFile] = useState(null);
+  const [selectedValue, setSelectedValue] = useState('text');
 
   // useRef
   const hiddenFileInput = useRef(null);
@@ -19,12 +29,18 @@ const Converter = () => {
     setFile(uploadFile);
   };
 
+  const handleSelectBoxChange = (event) => {
+    setSelectedValue(event.value);
+  };
+
   const handleConvertButtonClick = () => {
     console.log(file);
+    console.log(selectedValue);
   };
 
   const handleCloseBtnClick = () => {
     setFile(null);
+    setSelectedValue('text');
   };
 
   return (
@@ -40,6 +56,8 @@ const Converter = () => {
 
       {file && (
         <>
+          <SelectBox options={options} defaultValue={options[0]} onChange={handleSelectBoxChange} />
+
           <FileContainer>
             <span>{file.name}</span>
             <span>{bytesToSize(file.size)}</span>
@@ -112,4 +130,10 @@ const FileContainer = styled.div`
 
 const CloseBtn = styled.img`
   cursor: pointer;
+`;
+
+const SelectBox = styled(Select)`
+  width: 25%;
+  box-sizing: content-box;
+  margin: 30px;
 `;
