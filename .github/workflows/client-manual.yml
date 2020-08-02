@@ -8,9 +8,8 @@ on:
       - master
   workflow_dispatch:
 jobs:
-  initialize:
-    if: github.repository_owner == 'rare-idiots'
   build:
+    if: github.repository_owner == 'rare-idiots'
     runs-on: ubuntu-latest
     env:
       working-directory: ./client
