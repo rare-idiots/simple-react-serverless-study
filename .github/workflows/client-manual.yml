@@ -14,6 +14,8 @@ on:
         # Input has to be provided for the workflow to run
         required: true
 jobs:
+  initialize:
+    if: github.repository_owner == 'rare-idiots'
   build:
     runs-on: ubuntu-latest
     env:

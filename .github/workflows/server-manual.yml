@@ -1,0 +1,36 @@
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      name:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Build server and deploy'
+        # Default value if no value is explicitly provided
+        default: 'Server'
+        # Input has to be provided for the workflow to run
+        required: true
+name: Deploy master branch
+jobs:
+  initialize:
+    if: github.repository_owner == 'rare-idiots'
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./server
+    steps:
+      - uses: actions/checkout@master
+      - name: npm install
+        uses: actions/npm@master
+        with:
+          args: install
+      - name: serverless deploy
+        uses: serverless/github-action@master
+        with:
+          args: deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          # or if using SERVERLESS_ACCESS_KEY
+         #  SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
+
