@@ -1,0 +1,40 @@
+# This is a basic workflow that is manually triggered
+
+name: Manual workflow
+
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      name:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Build client and deploy to S3'
+        # Default value if no value is explicitly provided
+        default: 'Client'
+        # Input has to be provided for the workflow to run
+        required: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: git clone
+        uses: actions/checkout@v2
+
+      - name: npm install
+        run: npm install
+        
+      - name: build
+        run: npm run build
+        
+      - name: deploy
+        env:
+          AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
+          AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+        run: |
+          aws s3 cp \
+          --recursive \
+          --region ap-northeast-2 \
+          public s3://hyeja-pdf-converter.wanzargen.me
+
+
+
