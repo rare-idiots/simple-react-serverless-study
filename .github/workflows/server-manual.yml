@@ -1,9 +1,6 @@
 name: Server Manual Workflow
 
 on:
-  push:
-    branches:
-      - master
   workflow_dispatch:
 jobs:
   deploy:
