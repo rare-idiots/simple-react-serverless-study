@@ -1,0 +1,18 @@
+body,
+html,
+#root {
+  height: 100%;
+}
+
+body {
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #666;
+  text-align: left;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
