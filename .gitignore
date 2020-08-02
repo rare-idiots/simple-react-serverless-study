@@ -65,3 +65,10 @@ typings/
 
 # Serverless directories
 .serverless/
+
+# Dev tools
+.DS_Store
+.vscode
+.idea
+*.swp
+*.bak
