@@ -6,16 +6,17 @@ Hyeja Pdf Converter Client
 
 - React ^16.8
 - Styled-Component
+- AWS SDK
 - Github Actions & S3 Deploy
-<!-- - Apollo Client -->
 
 ## Set up project
 
 ### Dotenv
 
 ```env
-NODE_PATH=src/
-SKIP_PREFLIGHT_CHECK=true
+REACT_APP_S3_ACCESS_KEY=
+REACT_APP_S3_SECRET_ACCESS_KEY=
+REACT_APP_S3_BUCKET_NAME=
 ```
 
 ### How to install
@@ -31,3 +32,7 @@ $ npm install
 ```bash
 $ npm run start
 ```
+
+## WorkFlow
+
+<img src="https://github.com/rare-idiots/hyeja-pdf-converter/workflow.png" width="500">
