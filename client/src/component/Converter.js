@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 // Style
 import styled from 'styled-components';
@@ -8,6 +8,9 @@ import { bytesToSize } from 'util/index';
 
 // component
 import Select from 'react-select';
+
+// aws
+import AWS from 'aws-sdk';
 
 const Converter = () => {
   // variables
@@ -19,9 +22,22 @@ const Converter = () => {
   // useState
   const [file, setFile] = useState(null);
   const [selectedValue, setSelectedValue] = useState('text');
+  const [bucket, setBucket] = useState(null);
 
   // useRef
   const hiddenFileInput = useRef(null);
+
+  // useEffect
+  useEffect(() => {
+    AWS.config.update({
+      accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY,
+      secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY,
+    });
+
+    AWS.config.region = 'ap-northeast-2';
+
+    setBucket(new AWS.S3({ params: { Bucket: process.env.REACT_APP_S3_BUCKET_NAME } }));
+  }, []);
 
   // function
   const handleChange = (event) => {
@@ -33,14 +49,30 @@ const Converter = () => {
     setSelectedValue(event.value);
   };
 
-  const handleConvertButtonClick = () => {
-    console.log(file);
-    console.log(selectedValue);
+  const handleConvertButtonClick = async () => {
+    try {
+      const params = {
+        Key: generateKey(selectedValue, file.name),
+        ContentType: file.type,
+        Body: file,
+        ACL: 'public-read', // 접근 권한
+      };
+
+      const result = await bucket.putObject(params).promise();
+
+      console.log(result);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleCloseBtnClick = () => {
     setFile(null);
     setSelectedValue('text');
+  };
+
+  const generateKey = (selectedValue, fileName) => {
+    return `${selectedValue}/${new Date().getTime()}_${fileName}`;
   };
 
   return (
